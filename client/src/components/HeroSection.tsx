@@ -1,12 +1,13 @@
 import { ArrowDown, Github, Linkedin, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
-const heroBg = "/images/abstract_technology__e685e5a8.jpg";
-const profileImg = "/images/professional_develop_aaf5dc2f.jpg";
 import personalData from "@/data/personal.json";
-import { iconMap } from "@/data/iconMapping";
 
 export default function HeroSection() {
   const { personalInfo, socialLinks } = personalData;
+
+  // Use public folder paths instead of imports
+  const heroBg = "/images/abstract_technology__e685e5a8.jpg";
+  const profileImg = "/images/professional_develop_aaf5dc2f.jpg";
 
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
@@ -33,6 +34,7 @@ export default function HeroSection() {
             alt={personalInfo.name}
             className="w-48 h-48 md:w-56 md:h-56 rounded-full border-4 border-primary/30 shadow-2xl object-cover"
             data-testid="img-profile"
+            style={{ objectPosition: "50% 20%" }}
           />
         </div>
 
