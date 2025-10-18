@@ -1,0 +1,16 @@
+﻿{
+  "mernStack": [
+    { "name": "MongoDB", "icon": "SiMongodb", "color": "text-[#47A248]" },
+    { "name": "Express.js", "icon": "SiExpress", "color": "text-foreground" },
+    { "name": "React.js", "icon": "SiReact", "color": "text-[#61DAFB]" },
+    { "name": "Node.js", "icon": "SiNodedotjs", "color": "text-[#339933]" }
+  ],
+  "additionalSkills": [
+    { "name": "JavaScript", "icon": "SiJavascript", "color": "text-[#F7DF1E]" },
+    { "name": "TypeScript", "icon": "SiTypescript", "color": "text-[#3178C6]" },
+    { "name": "Tailwind CSS", "icon": "SiTailwindcss", "color": "text-[#06B6D4]" },
+    { "name": "Git", "icon": "SiGit", "color": "text-[#F05032]" },
+    { "name": "Docker", "icon": "SiDocker", "color": "text-[#2496ED]" },
+    { "name": "PostgreSQL", "icon": "SiPostgresql", "color": "text-[#4169E1]" }
+  ]
+}

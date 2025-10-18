@@ -1,0 +1,28 @@
+﻿{
+  "projects": [
+    {
+      "title": "E-Commerce Platform",
+      "description": "Full-stack e-commerce solution with user authentication, product management, and payment integration.",
+      "image": "modern_web_applicati_02cb0679.jpg",
+      "technologies": ["React", "Node.js", "MongoDB", "Express"],
+      "github": "https://github.com",
+      "live": "https://example.com"
+    },
+    {
+      "title": "Task Management App",
+      "description": "Collaborative task management application with real-time updates and team features.",
+      "image": "modern_web_applicati_69e420a3.jpg",
+      "technologies": ["React", "Socket.io", "Node.js", "PostgreSQL"],
+      "github": "https://github.com",
+      "live": "https://example.com"
+    },
+    {
+      "title": "Social Media Dashboard",
+      "description": "Analytics dashboard for social media metrics with data visualization and reporting.",
+      "image": "modern_web_applicati_9d375cf5.jpg",
+      "technologies": ["React", "Express", "MongoDB", "Chart.js"],
+      "github": "https://github.com",
+      "live": "https://example.com"
+    }
+  ]
+}
