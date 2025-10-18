@@ -1,7 +1,7 @@
 import { ArrowDown, Github, Linkedin, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import heroBg from "@assets/stock_images/abstract_technology__e685e5a8.jpg";
-import profileImg from "@assets/stock_images/professional_develop_aaf5dc2f.jpg";
+const heroBg = "/images/abstract_technology__e685e5a8.jpg";
+const profileImg = "/images/professional_develop_aaf5dc2f.jpg";
 import personalData from "@/data/personal.json";
 import { iconMap } from "@/data/iconMapping";
 
