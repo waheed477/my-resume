@@ -15,5 +15,5 @@ export default defineConfig({
     outDir: path.resolve(import.meta.dirname, "dist"),
     emptyOutDir: true,
   },
-  base: '/Portfolio/', // ← ADD THIS LINE
+  base: './', // ← CHANGE TO './' instead of '/Portfolio/'
 });
