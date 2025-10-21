@@ -10,9 +10,9 @@ export default defineConfig({
     },
   },
   root: "./client",
-  base: '/Portfolio/',
+  base: '/my-resume/',
   build: {
     outDir: "../dist",
-    emptyOutDir: true,  // ✅ ADD THIS LINE
+    emptyOutDir: true,
   },
 });
