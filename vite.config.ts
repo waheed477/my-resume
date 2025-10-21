@@ -15,5 +15,5 @@ export default defineConfig({
     outDir: path.resolve(import.meta.dirname, "dist"),
     emptyOutDir: true,
   },
-base: '/Portfolio/',
+base: process.env.NODE_ENV === 'production' ? './' : '/',
 });
