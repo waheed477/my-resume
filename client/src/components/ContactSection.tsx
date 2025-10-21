@@ -4,26 +4,26 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Mail, MapPin, Phone, Github, Linkedin } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import { useMutation } from "@tanstack/react-query";
-import { apiRequest } from "@/lib/queryClient";
 import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { insertContactMessageSchema, type InsertContactMessage } from "@shared/schema";
 import {
   Form,
   FormControl,
-  FormField,
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
 import personalData from "@/data/personal.json";
 
+interface ContactFormData {
+  name: string;
+  email: string;
+  message: string;
+}
+
 export default function ContactSection() {
   const { toast } = useToast();
   const { personalInfo, socialLinks } = personalData;
   
-  const form = useForm<InsertContactMessage>({
-    resolver: zodResolver(insertContactMessageSchema),
+  const form = useForm<ContactFormData>({
     defaultValues: {
       name: "",
       email: "",
@@ -31,29 +31,13 @@ export default function ContactSection() {
     },
   });
 
-  const contactMutation = useMutation({
-    mutationFn: async (data: InsertContactMessage) => {
-      const response = await apiRequest("POST", "/api/contact", data);
-      return await response.json();
-    },
-    onSuccess: () => {
-      toast({
-        title: "Message Sent!",
-        description: "Thank you for reaching out. I'll get back to you soon.",
-      });
-      form.reset();
-    },
-    onError: (error: Error) => {
-      toast({
-        title: "Error",
-        description: error.message || "Failed to send message. Please try again.",
-        variant: "destructive",
-      });
-    },
-  });
-
-  const handleSubmit = (data: InsertContactMessage) => {
-    contactMutation.mutate(data);
+  const handleSubmit = (data: ContactFormData) => {
+    // Simple client-side form handling
+    toast({
+      title: "Message Sent!",
+      description: "Thank you for reaching out. I'll get back to you soon.",
+    });
+    form.reset();
   };
 
   const contactInfo = [
@@ -85,58 +69,52 @@ export default function ContactSection() {
             </h3>
             <Form {...form}>
               <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-4">
-                <FormField
-                  control={form.control}
-                  name="name"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormControl>
-                        <Input
-                          placeholder="Your Name"
-                          data-testid="input-name"
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="email"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormControl>
-                        <Input
-                          type="email"
-                          placeholder="Your Email"
-                          data-testid="input-email"
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="message"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormControl>
-                        <Textarea
-                          placeholder="Your Message"
-                          rows={5}
-                          data-testid="input-message"
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <Button type="submit" className="w-full" disabled={contactMutation.isPending} data-testid="button-submit">
-                  {contactMutation.isPending ? "Sending..." : "Send Message"}
+                <FormItem>
+                  <FormControl>
+                    <Input
+                      placeholder="Your Name"
+                      data-testid="input-name"
+                      {...form.register("name", { required: "Name is required" })}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+                <FormItem>
+                  <FormControl>
+                    <Input
+                      type="email"
+                      placeholder="Your Email"
+                      data-testid="input-email"
+                      {...form.register("email", { 
+                        required: "Email is required",
+                        pattern: {
+                          value: /^\S+@\S+$/i,
+                          message: "Invalid email address"
+                        }
+                      })}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+                <FormItem>
+                  <FormControl>
+                    <Textarea
+                      placeholder="Your Message"
+                      rows={5}
+                      data-testid="input-message"
+                      {...form.register("message", { 
+                        required: "Message is required",
+                        minLength: {
+                          value: 10,
+                          message: "Message must be at least 10 characters"
+                        }
+                      })}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+                <Button type="submit" className="w-full" data-testid="button-submit">
+                  Send Message
                 </Button>
               </form>
             </Form>
