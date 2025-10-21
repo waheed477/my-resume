@@ -6,8 +6,8 @@ export default function HeroSection() {
   const { personalInfo, socialLinks } = personalData;
 
   // Use public folder paths instead of imports
-  const heroBg = "/images/abstract_technology__e685e5a8.jpg";
-  const profileImg = "/images/professional_develop_aaf5dc2f.jpg";
+const heroBg = "/images/abstract_technology__e685e5a8.jpg";
+const profileImg = "/images/professional_develop_aaf5dc2f.jpg";
 
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
