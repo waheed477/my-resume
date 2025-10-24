@@ -27,7 +27,7 @@ export default function ProjectsSection() {
             >
               <div className="aspect-video overflow-hidden">
                 <img
-                  src={`/images/${project.image}`}
+                  src={`/my-resume/images/${project.image}`}
                   alt={project.title}
                   className="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
                   data-testid={`img-project-${index}`}
