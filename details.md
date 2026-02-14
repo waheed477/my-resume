@@ -121,7 +121,6 @@ Preferred communication style: Simple, everyday language.
 - **zod**: Schema validation library
 
 ### Development Tools
-- **@replit/vite-plugin-***: Replit-specific development plugins
   - runtime-error-modal: Error overlay
   - cartographer: Code navigation
   - dev-banner: Development indicator
