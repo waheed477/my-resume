@@ -38,6 +38,9 @@ export default function BlogSection() {
   const githubHandle =
     personalData.socialLinks.github.split("/").filter(Boolean).pop() ||
     "waheed477";
+  const rssHref = DEV_TO_USERNAME
+    ? `https://dev.to/feed/${DEV_TO_USERNAME}`
+    : "";
 
   return (
     <section
@@ -170,62 +173,86 @@ export default function BlogSection() {
           </p>
         )}
 
-        {!DEV_TO_USERNAME && (
-          <Card
-            className="p-8 max-w-2xl mx-auto text-center"
-            data-testid="blog-coming-soon"
-          >
-            <Rss
-              className="h-10 w-10 mx-auto mb-4 text-primary"
-              aria-hidden="true"
-            />
-            <h3 className="text-xl font-semibold mb-2">
-              Engineering notes — coming soon
-            </h3>
-            <p className="text-muted-foreground mb-6 leading-relaxed">
-              I'm building a writing practice around the production lessons
-              I've learned shipping AI-powered MERN apps. Posts will appear
-              here as they're published.
-            </p>
-            <div className="flex flex-wrap gap-3 justify-center">
-              <Button
-                size="sm"
-                variant="outline"
-                onClick={() =>
-                  window.open(`https://dev.to/${githubHandle}`, "_blank")
-                }
-                data-testid="blog-button-devto"
-              >
-                Dev.to Profile
-                <ArrowUpRight
-                  className="h-3 w-3 ml-1 opacity-70"
-                  aria-hidden="true"
-                />
-              </Button>
-              <Button
-                size="sm"
-                variant="outline"
-                onClick={() =>
-                  window.open(
-                    `https://github.com/${githubHandle}`,
-                    "_blank",
-                  )
-                }
-                data-testid="blog-button-github"
-              >
-                Follow on GitHub
-                <ArrowUpRight
-                  className="h-3 w-3 ml-1 opacity-70"
-                  aria-hidden="true"
-                />
-              </Button>
+        {/* ── Follow-the-author CTA strip ─────────────────────────────
+            Always rendered (regardless of state). Convert visiting
+            recruiters into long-term followers, even if they just
+            arrive at a 0-article site today. */}
+        <div
+          className="mt-12 p-6 rounded-lg border border-border bg-card/40 backdrop-blur-sm flex flex-col sm:flex-row items-center justify-between gap-4"
+          data-testid="blog-follow-cta"
+        >
+          <div className="flex items-center gap-3 text-center sm:text-left">
+            <div className="p-2 rounded-md bg-primary/10 shrink-0">
+              <Rss className="h-5 w-5 text-primary" aria-hidden="true" />
             </div>
-            <p className="text-xs text-muted-foreground mt-6 italic leading-relaxed">
-              Set <code>DEV_TO_USERNAME</code> in{" "}
-              <code>client/src/config/blog.ts</code> to auto-display your
-              latest articles here.
-            </p>
-          </Card>
+            <div>
+              <p
+                className="font-semibold"
+                data-testid="blog-follow-title"
+              >
+                Follow along for future posts
+              </p>
+              <p className="text-sm text-muted-foreground">
+                Subscribe via Dev.to, RSS, or follow on GitHub.
+              </p>
+            </div>
+          </div>
+          <div className="flex flex-wrap gap-2 justify-center">
+            <Button
+              size="sm"
+              variant="outline"
+              onClick={() =>
+                window.open(`https://dev.to/${githubHandle}`, "_blank")
+              }
+              aria-label="Open Dev.to profile in a new tab"
+              data-testid="blog-follow-devto"
+            >
+              Dev.to
+              <ArrowUpRight
+                className="h-3 w-3 ml-1 opacity-70"
+                aria-hidden="true"
+              />
+            </Button>
+            {DEV_TO_USERNAME && (
+              <Button
+                size="sm"
+                variant="outline"
+                onClick={() => rssHref && window.open(rssHref, "_blank")}
+                aria-label="Open RSS feed in a new tab"
+                data-testid="blog-follow-rss"
+              >
+                <Rss className="h-3.5 w-3.5 mr-1.5" aria-hidden="true" />
+                RSS feed
+              </Button>
+            )}
+            <Button
+              size="sm"
+              variant="outline"
+              onClick={() =>
+                window.open(`https://github.com/${githubHandle}`, "_blank")
+              }
+              aria-label="Open GitHub profile in a new tab"
+              data-testid="blog-follow-github"
+            >
+              GitHub
+              <ArrowUpRight
+                className="h-3 w-3 ml-1 opacity-70"
+                aria-hidden="true"
+              />
+            </Button>
+          </div>
+        </div>
+
+        {/* ── First-time setup helper ──────────────────────────────── */}
+        {!DEV_TO_USERNAME && (
+          <p
+            className="text-center text-xs text-muted-foreground italic mt-8 leading-relaxed"
+            data-testid="blog-setup-note"
+          >
+            The Dev.to article card grid above will auto-appear the moment
+            you set <code>DEV_TO_USERNAME</code> in{" "}
+            <code>client/src/config/blog.ts</code>.
+          </p>
         )}
       </div>
     </section>

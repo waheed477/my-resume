@@ -1,0 +1,36 @@
+{
+  "intro": "How I work",
+  "tagline": "The principles that shape how I ship, communicate, and own outcomes on a team.",
+  "principles": [
+    {
+      "title": "End-to-end ownership",
+      "description": "I take a feature from the database schema to deployed pixels — architecture, code, tests, billing, observability. That's one job, not three.",
+      "icon": "Package"
+    },
+    {
+      "title": "Async-first, sync when it actually helps",
+      "description": "Default to written, asynchronous communication with good PR descriptions and notes-instead-of-meetings. I hop on a call when something truly demands one — never for status updates.",
+      "icon": "MessageSquare"
+    },
+    {
+      "title": "Tests are part of the feature",
+      "description": "Coverage is a side-effect of writing good code, not a separate task. The SEO Operator platform ships with 51 tests covering every critical path; CI is the gate.",
+      "icon": "ShieldCheck"
+    },
+    {
+      "title": "Document the decision, not just the code",
+      "description": "// Why X over Y? beats // X. READMEs beat excuses. Pull-request descriptions are for humans, not auditors — explain tradeoffs, not just diffs.",
+      "icon": "BookOpen"
+    },
+    {
+      "title": "Ship the smallest viable change",
+      "description": "I bias toward the smallest thing we can ship and learn from, then refactor with intention when patterns actually repeat. No preemptive abstractions.",
+      "icon": "Rocket"
+    },
+    {
+      "title": "Reaction 24h · Code mornings · Meetings afternoons",
+      "description": "Async messages: under 24h, every business day. PR reviews: same business day. Deep code work: mornings blocked out. Cross-team syncs clustered in the afternoon.",
+      "icon": "TimerReset"
+    }
+  ]
+}

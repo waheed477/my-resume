@@ -40,6 +40,15 @@ import {
   Sparkles,
   Languages,
   BarChart3,
+  Package,
+  MessageSquare,
+  ShieldCheck,
+  Rocket,
+  TimerReset,
+  Server,
+  FileJson,
+  Component,
+  Rss,
 } from "lucide-react";
 
 export const iconMap = {
@@ -85,4 +94,13 @@ export const iconMap = {
   Sparkles,
   Languages,
   BarChart3,
+  Package,
+  MessageSquare,
+  ShieldCheck,
+  Rocket,
+  TimerReset,
+  Server,
+  FileJson,
+  Component,
+  Rss,
 };

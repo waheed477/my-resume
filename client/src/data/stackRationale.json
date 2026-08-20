@@ -1,0 +1,26 @@
+{
+  "intro": "Why this stack",
+  "tagline": "Engineers reading engineers care about the chooser, not just the choices. Here is how I evaluate the tech behind this very portfolio.",
+  "points": [
+    {
+      "title": "Vite + React + TypeScript",
+      "description": "Sub-second HMR, type discipline catches integration bugs at edit-time not at 2am in production. The boring, fast choice.",
+      "icon": "Layers"
+    },
+    {
+      "title": "Tailwind CSS + Radix UI primitives",
+      "description": "Composable utility CSS + accessible primitives — no bespoke design system bloat. Only the patterns that actually get reused ship.",
+      "icon": "Component"
+    },
+    {
+      "title": "JSON data layer, no CMS",
+      "description": "The whole portfolio is content-as-data in versioned JSON files. Diffs of \"I changed my title\" are real PRs, no async cache to invalidate.",
+      "icon": "FileJson"
+    },
+    {
+      "title": "Static deploy on GitHub Pages",
+      "description": "No server to patch, no env vars to leak, no scaling surprises. Every byte is in version control, every push is a full deploy.",
+      "icon": "Server"
+    }
+  ]
+}

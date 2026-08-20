@@ -14,6 +14,7 @@ export default function Navbar() {
     { label: "About", id: "about" },
     { label: "Experience", id: "experience" },
     { label: "Projects", id: "projects" },
+    { label: "How I Work", id: "how-i-work" },
     { label: "Skills", id: "skills" },
     { label: "Education", id: "education" },
     { label: "Writing", id: "blog" },
@@ -130,10 +131,7 @@ export default function Navbar() {
         </div>
 
         {isMobileMenuOpen && (
-          <div
-            className="md:hidden mt-4 pb-4 space-y-2"
-            role="menu"
-          >
+          <div className="md:hidden mt-4 pb-4 space-y-2" role="menu">
             {navLinks.map((link) => {
               const isActive = activeId === link.id;
               return (

@@ -7,7 +7,7 @@ export default function HeroSection() {
   const { personalInfo, socialLinks } = personalData;
 
   const heroBg = "/my-resume/images/abstract_technology__e685e5a8.jpg";
-  const profileImg = "/my-resume/images/professional_develop_aaf5dc2f.jpg";
+  const profileImg = "/my-resume/images/profile-photo.jpg";
   const resumePdf = "/my-resume/Waheed-Aslam-Resume.pdf";
 
   const scrollToSection = (id: string) => {
@@ -47,7 +47,7 @@ export default function HeroSection() {
             alt={personalInfo.name}
             className="w-48 h-48 md:w-56 md:h-56 rounded-full border-4 border-primary/30 shadow-2xl object-cover"
             data-testid="img-profile"
-            style={{ objectPosition: "50% 20%" }}
+            style={{ objectPosition: "50% 25%" }}
           />
         </div>
 
