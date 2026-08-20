@@ -10,14 +10,14 @@
  *     reclaimed on `activate`.
  * ─────────────────────────────────────────────────────────────────── */
 
-const CACHE_NAME = "waheed-portfolio-v1";
+const CACHE_NAME = "waheed-portfolio-v2";
 const SHELL_ASSETS = [
-  "/my-resume/",
-  "/my-resume/Waheed-Aslam-Resume.pdf",
-  "/my-resume/og-image.png",
-  "/my-resume/manifest.webmanifest",
-  "/my-resume/pwa-icon-192.png",
-  "/my-resume/pwa-icon-512.png",
+  "/",
+  "/Waheed-Aslam-Resume.pdf",
+  "/og-image.png",
+  "/manifest.webmanifest",
+  "/pwa-icon-192.png",
+  "/pwa-icon-512.png",
 ];
 
 self.addEventListener("install", (event) => {
@@ -56,7 +56,6 @@ self.addEventListener("fetch", (event) => {
       if (cached) return cached;
       return fetch(request)
         .then((response) => {
-          // Only cache successful, basic responses to avoid storing HTML errors.
           if (
             response &&
             response.status === 200 &&
@@ -67,7 +66,7 @@ self.addEventListener("fetch", (event) => {
           }
           return response;
         })
-        .catch(() => caches.match("/my-resume/"));
+        .catch(() => caches.match("/"));
     }),
   );
 });

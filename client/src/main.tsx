@@ -12,7 +12,7 @@ if (
 ) {
   window.addEventListener("load", () => {
     navigator.serviceWorker
-      .register("/my-resume/sw.js", { scope: "/my-resume/" })
+      .register("/sw.js", { scope: "/" })
       .catch((err) =>
         console.warn("[SW] registration skipped:", err.message),
       );

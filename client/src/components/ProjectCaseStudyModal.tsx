@@ -74,7 +74,7 @@ export default function ProjectCaseStudyModal({
 
         <figure className="-mx-2">
           <img
-            src={`/my-resume/images/${project.image}`}
+            src={`/images/${project.image}`}
             alt={`${project.title} preview`}
             className="w-full h-auto rounded-md border border-border object-cover"
             data-testid="dialog-image"

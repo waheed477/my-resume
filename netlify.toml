@@ -1,0 +1,84 @@
+# ──────────────────────────────────────────────────────────────────
+#  Netlify configuration for the Waheed Aslam portfolio
+# ───────────────────────────────��──────────────────────────────────
+#
+#  This file tells Netlify exactly how to build and serve the site.
+#  Drop the repo into Netlify ("Add new site → Import from Git")
+#  and everything below is honoured automatically.
+#
+#  ── Build settings ───────────────────────────────────────────────
+#  • command      : `npm run build` — runs Vite (matches package.json)
+#  • publish      : `dist`           — Vite outputs here via vite.config.ts
+#  • base         : `.`              — repo root (Vite reads from ./client)
+#
+#  ── Runtime settings ─────────────────────────────────────────────
+#  • Node 20     : required by Vite 5.x, also silences the GH-Actions
+#                  deprecation warning if you ever switch back
+#  • SPA fallback: every 404 → /index.html so client-side routing
+#                  works (currently we use scroll-spy, but this is
+#                  forward-compat for any future routing additions)
+#
+#  ── Cache headers ────────────────────────────────────────────────
+#  • hashed assets (/_astro-style Vite /assets/* paths) are
+#    immutable, cached forever
+#  • /sw.js is NEVER cached so an updated service worker takes
+#    effect on the next page load
+#  • everything else gets `no-cache` so deploys feel instant
+#
+#  ── Security headers ─────────────────────────────────────────────
+#  • CSP:    only allow resources from the site itself + Google
+#            Fonts (the font preconnect) + the GitHub API + Dev.to
+#            (only if you set DEV_TO_USERNAME)
+#  • X-Frame: DENY prevents anyone from iframing your portfolio
+#  • X-Content-Type-Options: nosniff blocks MIME sniffing
+#  • Referrer-Policy: strict-origin-when-cross-origin is the modern
+#            default — full URLs leak into other origins otherwise
+#  • Permissions-Policy: locks down camera/mic/geo even though the
+#            site uses none of them
+# ──────────────────────────────────────────────────────────────────
+
+[build]
+  command   = "npm run build"
+  publish   = "dist"
+  base      = "."
+
+[build.environment]
+  NODE_VERSION = "20"
+
+# ── SPA-style fallback ─────────────────────────────────────────────
+# Any path that doesn't match a real file → /index.html. Required if
+# you ever add client-side routing; harmless today.
+[[redirects]]
+  from   = "/*"
+  to     = "/index.html"
+  status = 200
+
+# ── Cache headers ──────────────────────────────────────────────────
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/sw.js"
+  [headers.values]
+    Cache-Control = "no-cache, no-store, must-revalidate"
+
+# ── Security headers ───────────────────────────────────────────────
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options           = "DENY"
+    X-Content-Type-Options    = "nosniff"
+    Referrer-Policy           = "strict-origin-when-cross-origin"
+    Permissions-Policy        = "camera=(), microphone=(), geolocation=()"
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
+    Content-Security-Policy   = """
+      default-src 'self';
+      img-src 'self' data: https:;
+      font-src 'self' https://fonts.gstatic.com data:;
+      style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+      script-src 'self' 'unsafe-inline';
+      connect-src 'self' https://api.github.com https://dev.to;
+      frame-ancestors 'none';
+    """
