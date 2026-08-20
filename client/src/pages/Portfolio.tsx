@@ -2,7 +2,6 @@ import Navbar from "@/components/Navbar";
 import SkipToMainContent from "@/components/SkipToMainContent";
 import HeroSection from "@/components/HeroSection";
 import StatsSection from "@/components/StatsSection";
-import ProfileCardSection from "@/components/ProfileCardSection";
 import AboutSection from "@/components/AboutSection";
 import LanguagesSkillsSection from "@/components/LanguagesSkillsSection";
 import ExperienceSection from "@/components/ExperienceSection";
@@ -28,11 +27,15 @@ import ReadingProgressBar from "@/components/ReadingProgressBar";
  * trail from "Is this person real?" to "Should I make them an
  * offer?".
  *
- *   Hero → Numbers → Profile Card → About → Languages → Experience
+ *   Hero (with real photo) → Numbers → About → Languages → Experience
  *       → Projects → Skills → Proficiency → Stack Rationale
  *       → Core Strengths → How I Work
  *       → Education → Testimonials → Writing(Blog) → GitHub Stats
  *       → Contact → Footer
+ *
+ * Photo lives once, in the Hero. Recruiters look for the headshot
+ * in the first 3 seconds — that's prime real estate and a clean
+ * pattern: "here's who I am, here's my impact".
  *
  * The full page is wrapped in <main id="main" tabIndex={-1}> so the
  * SkipToMainContent link leaves focus where it belongs.
@@ -46,7 +49,6 @@ export default function Portfolio() {
       <main id="main" tabIndex={-1}>
         <HeroSection />
         <StatsSection />
-        <ProfileCardSection />
         <AboutSection />
         <LanguagesSkillsSection />
         <ExperienceSection />

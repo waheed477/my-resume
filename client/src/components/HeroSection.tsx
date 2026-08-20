@@ -41,14 +41,31 @@ export default function HeroSection() {
           </span>
         </div>
 
-        <div className="mb-8 flex justify-center">
-          <img
-            src={profileImg}
-            alt={personalInfo.name}
-            className="w-48 h-48 md:w-56 md:h-56 rounded-full border-4 border-primary/30 shadow-2xl object-cover"
-            data-testid="img-profile"
-            style={{ objectPosition: "50% 25%" }}
-          />
+        {/* ── Profile photo with pro gradient ring ── */}
+        <div
+          className="mb-8 flex justify-center"
+          data-testid="hero-photo-wrapper"
+        >
+          <div className="relative">
+            {/* Decorative gradient ring */}
+            <div
+              aria-hidden="true"
+              className="absolute -inset-1 rounded-full bg-gradient-to-tr from-primary via-primary/40 to-transparent blur-sm opacity-90"
+            />
+            <div
+              aria-hidden="true"
+              className="absolute -inset-[3px] rounded-full bg-gradient-to-tr from-primary/80 via-primary/30 to-transparent"
+            />
+            <img
+              src={profileImg}
+              alt={personalInfo.name}
+              className="relative w-48 h-48 md:w-56 md:h-56 rounded-full border-4 border-background object-cover shadow-2xl"
+              data-testid="img-profile"
+              style={{ objectPosition: "50% 25%" }}
+              loading="eager"
+              decoding="async"
+            />
+          </div>
         </div>
 
         <h1
