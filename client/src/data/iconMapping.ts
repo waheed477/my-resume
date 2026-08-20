@@ -10,15 +10,11 @@ import {
   SiVite,
   SiMongoose,
   SiStripe,
-  SiSocketio,
   SiPuppeteer,
   SiGithubactions,
-  SiHtml5,
-  SiCss3,
-  SiGoogle,
   SiGithub,
+  SiGoogle,
   SiPostman,
-  SiVisualstudiocode,
   SiJest,
   SiVitest,
   SiGit,
@@ -49,10 +45,27 @@ import {
   FileJson,
   Component,
   Rss,
+  BookOpen,
+  Layers,
+  // Icons used to replace Si* variants that were removed from
+  // react-icons@5.x (SiCss3, SiHtml5, SiSocketio,
+  // SiVisualstudiocode). These lucide-react equivalents keep
+  // the same visual intent and stay aligned with the rest of
+  // the icon system.
+  FileCode,
+  FileCode2,
+  Network,
+  TerminalSquare,
 } from "lucide-react";
 
 export const iconMap = {
-  // Simple Icons (react-icons/si)
+  // ── Simple Icons (react-icons/si) ────────────────────────────
+  // Note: SiCss3, SiHtml5, SiSocketio, and SiVisualstudiocode
+  // were removed from react-icons@5.x. Their references in
+  // skills.json and skillsProficiency.json have been remapped to
+  // the lucide-react equivalents below (FileCode2, FileCode,
+  // Network, TerminalSquare) so the build resolves cleanly and
+  // the iconography stays consistent.
   SiMongodb,
   SiExpress,
   SiReact,
@@ -64,20 +77,16 @@ export const iconMap = {
   SiVite,
   SiMongoose,
   SiStripe,
-  SiSocketio,
   SiPuppeteer,
   SiGithubactions,
-  SiHtml5,
-  SiCss3,
-  SiGoogle,
   SiGithub,
+  SiGoogle,
   SiPostman,
-  SiVisualstudiocode,
   SiJest,
   SiVitest,
   SiGit,
 
-  // Lucide Icons
+  // ── Lucide Icons ────────────────────────────────────────────
   Mail,
   MapPin,
   Phone,
@@ -103,4 +112,10 @@ export const iconMap = {
   FileJson,
   Component,
   Rss,
+  FileCode,
+  FileCode2,
+  Network,
+  TerminalSquare,
+  BookOpen,
+  Layers,
 };

@@ -15,8 +15,8 @@
         { "name": "JavaScript (ES6+)", "icon": "SiJavascript", "color": "text-[#F7DF1E]" },
         { "name": "Vite", "icon": "SiVite", "color": "text-[#646CFF]" },
         { "name": "Tailwind CSS", "icon": "SiTailwindcss", "color": "text-[#06B6D4]" },
-        { "name": "HTML5", "icon": "SiHtml5", "color": "text-[#E34F26]" },
-        { "name": "CSS3", "icon": "SiCss3", "color": "text-[#1572B6]" }
+        { "name": "HTML5", "icon": "FileCode2", "color": "text-[#E34F26]" },
+        { "name": "CSS3", "icon": "FileCode", "color": "text-[#1572B6]" }
       ]
     },
     {
@@ -49,7 +49,7 @@
     {
       "title": "Real-Time & Payments",
       "skills": [
-        { "name": "Socket.io", "icon": "SiSocketio", "color": "text-foreground" },
+        { "name": "Socket.io", "icon": "Network", "color": "text-foreground" },
         { "name": "Stripe (Checkout & Webhooks)", "icon": "SiStripe", "color": "text-[#635BFF]" }
       ]
     },
@@ -59,7 +59,7 @@
         { "name": "Git", "icon": "SiGit", "color": "text-[#F05032]" },
         { "name": "GitHub", "icon": "SiGithub", "color": "text-foreground" },
         { "name": "Postman", "icon": "SiPostman", "color": "text-[#FF6C37]" },
-        { "name": "VS Code", "icon": "SiVisualstudiocode", "color": "text-[#007ACC]" },
+        { "name": "VS Code", "icon": "TerminalSquare", "color": "text-[#007ACC]" },
         { "name": "Jest", "icon": "SiJest", "color": "text-[#C21325]" },
         { "name": "Vitest", "icon": "SiVitest", "color": "text-[#6E9F18]" },
         { "name": "GitHub Actions (CI)", "icon": "SiGithubactions", "color": "text-[#2088FF]" }

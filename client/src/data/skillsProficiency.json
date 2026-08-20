@@ -6,7 +6,7 @@
     { "name": "TypeScript", "icon": "SiTypescript", "color": "text-[#3178C6]", "level": "proficient", "score": 85 },
     { "name": "Stripe Billing", "icon": "SiStripe", "color": "text-[#635BFF]", "level": "proficient", "score": 82 },
     { "name": "OAuth2 / JWT", "icon": "KeyRound", "color": "text-primary", "level": "proficient", "score": 80 },
-    { "name": "Socket.io", "icon": "SiSocketio", "color": "text-foreground", "level": "proficient", "score": 78 },
+    { "name": "Socket.io", "icon": "Network", "color": "text-foreground", "level": "proficient", "score": 78 },
     { "name": "Tailwind CSS", "icon": "SiTailwindcss", "color": "text-[#06B6D4]", "level": "expert", "score": 90 },
     { "name": "Groq AI / LLM Apps", "icon": "Brain", "color": "text-primary", "level": "proficient", "score": 80 },
     { "name": "Puppeteer / Scraping", "icon": "SiPuppeteer", "color": "text-[#40B5A4]", "level": "familiar", "score": 70 },
