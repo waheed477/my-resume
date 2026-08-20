@@ -1,0 +1,20 @@
+{
+  "strengths": [
+    {
+      "title": "End-to-end Product Ownership",
+      "description": "Architecture, database design, and deployment across 3 production-ready SaaS platforms."
+    },
+    {
+      "title": "Hands-on AI Integration",
+      "description": "Groq AI agents and Llama 2 fine-tuning applied to real, deployed applications."
+    },
+    {
+      "title": "Third-Party Systems Integration",
+      "description": "OAuth2, Stripe billing, Google Search Console API, and email/WhatsApp notifications."
+    },
+    {
+      "title": "Real-Time Architecture",
+      "description": "Socket.io-based live dashboards and messaging implemented across every project."
+    }
+  ]
+}

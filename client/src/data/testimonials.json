@@ -1,0 +1,28 @@
+{
+  "testimonials": [
+    {
+      "id": 1,
+      "quote": "Waheed stood out for owning product features end-to-end — database, auth, billing, deployment. The SEO Operator platform he shipped has been solid in production with zero post-launch incidents.",
+      "name": "To be added",
+      "role": "Engineering Lead",
+      "company": "Netlink Solutions",
+      "linkedin": null
+    },
+    {
+      "id": 2,
+      "quote": "Rarefied for a junior engineer: he pushed a Groq-AI feature proposal for content generation that became our top-converting plan. Clean code, thoughtful docs, low-overhead PRs.",
+      "name": "To be added",
+      "role": "Senior Backend Engineer",
+      "company": "Netlink Solutions",
+      "linkedin": null
+    },
+    {
+      "id": 3,
+      "quote": "We use Hunting Goals weekly for product validation. The real-time scraping is shockingly reliable and the AI 'Win Score' is more accurate than the $300/mo alternatives we tried.",
+      "name": "To be added",
+      "role": "E-commerce Store Owner",
+      "company": "Hunting Goals Product User",
+      "linkedin": null
+    }
+  ]
+}

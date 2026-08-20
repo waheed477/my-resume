@@ -1,48 +1,87 @@
-﻿{
-  "projects": [
-   
-   {
-  "title": "Basheer Flour Shop - Official Website",
-  "description": "Custom-built e-commerce solution for a local flour mill business. Features bilingual support, product management system, and direct WhatsApp ordering to streamline customer purchases.",
-  "image": "online-shop.webp",
-  "technologies": [
-    "React.js",
-    "TypeScript",
-    "Tailwind CSS",
-    "LocalStorage API",
-    "Netlify"
-  ],
-  "github": "private",
-  "live": "https://basheerflour.netlify.app",
-  "client": "Basheer Flour Mills",
-  "year": "2026",
-  "role": "Frontend Developer"
-},
-
 {
-  "title": "Trendzx Cart - AI-Powered E-commerce Platform",
-  "description": "Full-stack e-commerce platform [In Development] with AI-powered product recommendations. Features user authentication, shopping cart, product management, and admin dashboard. Built with modern MERN stack practices.",
-  "image": "modern_web_applicati_9d375cf5.jpg",
-  "technologies": [
-    "React.js",
-    "Node.js",
-    "Express.js",
-    "MongoDB",
-    "TypeScript",
-    "Tailwind CSS"
-  ],
-  "features": [
-    "AI-powered product recommendations",
-    "User authentication & authorization",
-    "Shopping cart functionality",
-    "Admin dashboard for management",
-    "Responsive design"
-  ],
-  "github": "https://github.com/waheed477/1-trendzx-ecommerce-platform",
-  "live": "in-development",
-  "status": "In Development",
-  "year": "2026"
-}
-   
+  "projects": [
+    {
+      "title": "Hunting Goals — AI-Powered Winning Product Finder",
+      "type": "Full-Stack SaaS Platform",
+      "status": "Deployed",
+      "bullets": [
+        "Built a full-stack SaaS platform that scrapes real-time market signals (Facebook/Instagram Ads, Daraz, OLX, Google Trends, TikTok) to help Pakistani e-commerce sellers identify winning products ahead of competitors.",
+        "Designed a weighted AI 'Win Score' engine and integrated Groq AI to generate product analysis, ready-to-use ad copy, and supplier/sourcing recommendations.",
+        "Automated ad and market data collection with Puppeteer (stealth scraping) and delivered live in-app updates via Socket.io.",
+        "Implemented JWT authentication, Google OAuth, and Stripe subscription billing (Free/Pro/Business tiers) with webhook-driven plan management.",
+        "Built a responsive front end with React, Next.js, and Tailwind CSS, and deployed the full system on Render with automated cron jobs and email/WhatsApp alerts."
+      ],
+      "image": "hunting-goals-dashboard.png",
+      "technologies": [
+        "React",
+        "Next.js",
+        "Node.js",
+        "Express.js",
+        "MongoDB",
+        "Puppeteer",
+        "Groq AI",
+        "Socket.io",
+        "Stripe",
+        "JWT",
+        "Google OAuth",
+        "Tailwind CSS"
+      ],
+      "github": "https://github.com/waheed477/HuntingGoals-Winning-Product-Finder",
+      "live": "https://huntinggoals.onrender.com"
+    },
+    {
+      "title": "SEO Operator System — AI-Powered SEO Operating System",
+      "type": "Full-Stack SaaS Platform",
+      "status": "Deployed",
+      "bullets": [
+        "Built a full-stack SEO automation platform powered by 5 AI agents (technical audit, keyword research, content review, competitor gap analysis, action-plan synthesis) using the Groq API.",
+        "Integrated the official Google Search Console API via OAuth2 for rank tracking, encrypting refresh tokens at rest with AES-256-CBC.",
+        "Implemented Stripe subscription billing (Checkout, signature-verified webhooks, plan lifecycle) with server-enforced free-tier limits.",
+        "Designed an async job pipeline (queued → running → done/failed) with a cron-based watchdog for reliable long-running audits and reports.",
+        "Developed a React, TypeScript, and Vite front end with Tailwind CSS, Zustand state management, and Recharts data visualization; covered by 51 automated tests (Jest, Vitest) with CI via GitHub Actions."
+      ],
+      "image": "seo-operator-dashboard.png",
+      "technologies": [
+        "React",
+        "TypeScript",
+        "Vite",
+        "Node.js",
+        "Express.js",
+        "MongoDB",
+        "Mongoose",
+        "Groq AI",
+        "Google OAuth2",
+        "Stripe",
+        "Tailwind CSS",
+        "Zustand"
+      ],
+      "github": "https://github.com/waheed477/SEO-operator-system",
+      "live": "https://seo-tracker-drq6.onrender.com"
+    },
+    {
+      "title": "MindMate — Mental Health Support Platform",
+      "type": "Full-Stack MERN Application",
+      "status": "Deployed",
+      "bullets": [
+        "Developed a hybrid mental health platform combining an AI chatbot with real human doctor connectivity for immediate and ongoing support.",
+        "Fine-tuned a Llama 2 model across 30+ categories with 240+ curated responses to power instant AI-driven mental health support.",
+        "Enabled appointment booking, doctor messaging, and digital prescriptions within a secure MERN application.",
+        "Implemented JWT authentication, Google OAuth, and real-time messaging with Socket.io for secure, live patient-doctor communication."
+      ],
+      "image": "mindmate-app-ui.png",
+      "technologies": [
+        "MongoDB",
+        "Express.js",
+        "React",
+        "Node.js",
+        "TypeScript",
+        "Socket.io",
+        "Tailwind CSS",
+        "JWT",
+        "Google OAuth"
+      ],
+      "github": "https://github.com/waheed477/mindmate",
+      "live": "https://mindmatecare.netlify.app"
+    }
   ]
 }

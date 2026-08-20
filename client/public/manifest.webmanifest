@@ -1,0 +1,26 @@
+{
+  "name": "Waheed Aslam — Portfolio",
+  "short_name": "Waheed A.",
+  "description": "MERN Stack Developer · Portfolio · AI-powered SaaS",
+  "start_url": "/my-resume/",
+  "scope": "/my-resume/",
+  "display": "standalone",
+  "background_color": "#0a0a0a",
+  "theme_color": "#0a0a0a",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "/my-resume/pwa-icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/my-resume/pwa-icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["portfolio", "productivity", "developer"]
+}

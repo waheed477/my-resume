@@ -1,0 +1,94 @@
+{
+  "caseStudies": [
+    {
+      "title": "Hunting Goals — AI-Powered Winning Product Finder",
+      "type": "Full-Stack SaaS Platform",
+      "status": "Deployed",
+      "image": "hunting-goals-dashboard.png",
+      "problem": "Pakistani e-commerce sellers rely on guesswork when picking products: ad trends on Facebook/Instagram, OLX volume, Daraz bestseller charts, and Google Trends are scattered across platforms, and 'winning products' typically emerge days after competitors have already saturated them. Manual research takes hours per candidate product.",
+      "approach": "Built an end-to-end SaaS that aggregates demand signals from 5 sources in near real-time (stealth Puppeteer scraping with rotating fingerprints, plus the official Google Trends API). A weighted 'Win Score' engine ranks candidates by velocity × margin × ad-saturation gap, and Groq AI generates a product brief — competitor analysis, supplier angles, ready-to-use ad copy — without leaving the platform.",
+      "outcomes": [
+        "Reduced product-research time from ~3 hours/seller/week to <15 minutes",
+        "Stripe-billed subscription tiers (Free / Pro / Business) with webhook-automated plan management — zero manual account work",
+        "Live in-app feed updates via Socket.io so users see new winning products the moment they surface",
+        "Cron-driven email and WhatsApp alerts for hands-off monitoring"
+      ],
+      "architecture": "React + Next.js front end behind a Node.js/Express API; MongoDB collections normalize heterogeneous data sources; the Groq AI layer generates analysis asynchronously with results streamed back over Socket.io. All paid features gate through JWT + Google OAuth2 and a server-side subscription check, so tokens alone don't unlock Pro. Deployed on Render with automated cron jobs.",
+      "technologies": [
+        "React",
+        "Next.js",
+        "Node.js",
+        "Express.js",
+        "MongoDB",
+        "Puppeteer",
+        "Groq AI",
+        "Socket.io",
+        "Stripe",
+        "JWT",
+        "Google OAuth",
+        "Tailwind CSS"
+      ],
+      "github": "https://github.com/waheed477/HuntingGoals-Winning-Product-Finder",
+      "live": "https://huntinggoals.onrender.com"
+    },
+    {
+      "title": "SEO Operator — AI-Powered SEO Operating System",
+      "type": "Full-Stack SaaS Platform",
+      "status": "Deployed",
+      "image": "seo-operator-dashboard.png",
+      "problem": "Running an SEO agency means running the same five audits repeatedly: technical audits, keyword research, content review, competitor gap analysis, action-plan synthesis — each broken across different tools with different UX and pricing. There's no single source of truth that takes a domain and produces a complete, prioritized action plan.",
+      "approach": "Orchestrated 5 specialized AI agents on the Groq API — each agent owns one audit domain and runs in parallel. The action-plan synthesis agent performs a final pass across all five results and produces a prioritized roadmap. The official Google Search Console API is wired in via OAuth2 for accurate rank tracking; refresh tokens are encrypted at rest with AES-256-CBC.",
+      "outcomes": [
+        "51 automated tests (Jest + Vitest) running in CI via GitHub Actions — every PR verified before merge",
+        "Async job pipeline with a cron watchdog means long-running audits never silently fail",
+        "Stripe webhooks enforce free-tier limits server-side — users can only as much as their plan allows",
+        "Single dashboard replaces $300+/mo in point tools for typical agency-tier audits"
+      ],
+      "architecture": "React + TypeScript + Vite front end with Zustand for client state and Recharts for visualization. The backend is Node.js/Express with Mongoose schemas modelling SEO reports, audit runs, and user accounts; heavy work runs through a queued async pipeline so the API stays fast. Live on Render with persistent storage.",
+      "technologies": [
+        "React",
+        "TypeScript",
+        "Vite",
+        "Node.js",
+        "Express.js",
+        "MongoDB",
+        "Mongoose",
+        "Groq AI",
+        "Google OAuth2",
+        "Stripe",
+        "Tailwind CSS",
+        "Zustand"
+      ],
+      "github": "https://github.com/waheed477/SEO-operator-system",
+      "live": "https://seo-tracker-drq6.onrender.com"
+    },
+    {
+      "title": "MindMate — Mental Health Support Platform",
+      "type": "Full-Stack MERN Application",
+      "status": "Deployed",
+      "image": "mindmate-app-ui.png",
+      "problem": "Mental-health support is either immediate-but-impersonal (chatbots) or personal-but-slow (doctor appointments). Neither route handles the full lifecycle: a user in distress needs help in seconds, and ongoing care needs continuity with the same clinician.",
+      "approach": "Combined both: an AI chatbot front-line trained on a fine-tuned Llama 2 model (30+ categories, 240+ curated responses) handles immediate triage and emotional support, then escalates to a board-certified doctor inside the same application for human continuity. Patients can book appointments, message their doctor, and receive digital prescriptions in-app.",
+      "outcomes": [
+        "Llama 2 fine-tuning across 30+ categories with 240+ curated responses — covers acute distress, coping strategies, and routine wellness",
+        "End-to-end encrypted patient-doctor messaging powered by Socket.io for live, secure conversations",
+        "Appointment booking with digital prescriptions — closed loop from triage to treatment within one UI",
+        "Google OAuth + JWT auth so patients and doctors have isolated, role-aware workspaces"
+      ],
+      "architecture": "Classic MERN with TypeScript end-to-end. The chatbot layer calls a self-hosted Llama 2 inference endpoint fine-tuned on the curated response set; human-doctor workflows route through Socket.io channels scoped per consultation. Tailwind CSS drives a calm, low-saturation UI tuned for vulnerable users.",
+      "technologies": [
+        "MongoDB",
+        "Express.js",
+        "React",
+        "Node.js",
+        "TypeScript",
+        "Socket.io",
+        "Tailwind CSS",
+        "JWT",
+        "Google OAuth"
+      ],
+      "github": "https://github.com/waheed477/mindmate",
+      "live": "https://mindmatecare.netlify.app"
+    }
+  ]
+}

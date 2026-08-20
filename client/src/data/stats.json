@@ -1,0 +1,25 @@
+{
+  "intro": "By the numbers",
+  "items": [
+    {
+      "value": "3",
+      "label": "Production Apps Deployed",
+      "sublabel": "Hunting Goals · SEO Operator · MindMate"
+    },
+    {
+      "value": "51",
+      "label": "Automated Tests in CI",
+      "sublabel": "Jest + Vitest via GitHub Actions"
+    },
+    {
+      "value": "5",
+      "label": "AI Agents in Production",
+      "sublabel": "Technical SEO, keywords, content, gap, action"
+    },
+    {
+      "value": "240+",
+      "label": "LLM Responses Curated",
+      "sublabel": "Fine-tuned Llama 2 across 30+ categories"
+    }
+  ]
+}

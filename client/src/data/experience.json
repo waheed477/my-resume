@@ -1,0 +1,18 @@
+{
+  "experience": {
+    "company": "Netlink Solutions",
+    "role": "MERN Stack Developer",
+    "location": "Faisalabad, Pakistan",
+    "startDate": "February 2023",
+    "endDate": "April 2025",
+    "duration": "2 Years",
+    "achievements": [
+      "Developed and maintained full-stack MERN features, implementing RESTful APIs, JWT-based authentication, and Google OAuth2 login flows for secure, production-grade user management.",
+      "Integrated AI capabilities into client applications using the Groq API and fine-tuned Llama 2 models to power automated content generation, analysis, and conversational features.",
+      "Built automated data pipelines with Puppeteer, Cheerio, and node-cron for scheduled scraping, data collection, and background job processing.",
+      "Implemented Stripe subscription billing (Checkout sessions, signature-verified webhooks) to manage plan lifecycles and automate SaaS payment workflows.",
+      "Built real-time features with Socket.io, including live dashboards and messaging systems, and designed MongoDB/Mongoose schemas to support them.",
+      "Collaborated in an agile team to debug, test, and ship production-ready code on schedule; recognized by company leadership for technical proficiency and professionalism."
+    ]
+  }
+}

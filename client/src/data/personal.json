@@ -1,33 +1,17 @@
-﻿{
+{
   "personalInfo": {
     "name": "Waheed Aslam",
     "title": "MERN Stack Developer",
-    "description": "Bachelor in Computer Science | Building modern web experiences",
-    "email": "azlanch93@gmail.com",
-    "phone": "+92 0000000000",
-    "location": "Pakistan",
+    "email": "waheeddd62@gmail.com",
+    "phone": "+92 343 0871243",
+    "location": "Faisalabad, Pakistan",
     "bio": [
-      "I'm a passionate MERN Stack Developer with a Bachelor's degree in Computer Science. I specialize in building modern, scalable web applications using MongoDB, Express.js, React.js, and Node.js.",
-      "My journey in web development combines strong technical skills with creative problem-solving. I'm dedicated to writing clean, efficient code and creating exceptional user experiences."
+      "MERN Stack Developer with hands-on experience designing and shipping full-stack, AI-powered SaaS platforms — spanning realtime market-intelligence tools, SEO automation systems, and healthcare applications. Proficient in React, Next.js, Node.js, Express.js, and MongoDB, with practical experience integrating AI agents (Groq AI, fine-tuned Llama 2), OAuth2 authentication (Google, JWT), Stripe subscription billing, and real-time features via Socket.io. Experienced in building automated data pipelines (Puppeteer, Cheerio, cron scheduling) and comfortable owning a product end-to-end — from database architecture to production deployment."
     ]
   },
   "socialLinks": {
     "github": "https://github.com/waheed477",
     "linkedin": "https://www.linkedin.com/in/waheed-aslam-5a9208372",
-    "email": "azlanch93@gmail.com"
-  },
-  "highlights": [
-    {
-      "title": "Education",
-      "description": "Bachelor in Computer Science"
-    },
-    {
-      "title": "Specialization",
-      "description": "MERN Stack Development"
-    },
-    {
-      "title": "Focus",
-      "description": "Modern Web Applications"
-    }
-  ]
+    "email": "waheeddd62@gmail.com"
+  }
 }
