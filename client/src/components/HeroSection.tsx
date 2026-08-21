@@ -8,42 +8,46 @@ import {
 import { Button, buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import personalData from "@/data/personal.json";
+import { useTypewriter } from "@/hooks/use-typewriter";
 
 /**
  * HeroSection
  * ────────────────────────────────────────────────────────────────
  * Two-column hero.
  *
- *   LEFT  (text-dominant) → greeting · name · designation · tags ·
- *                           short bio · CTAs · socials
+ *   LEFT  (text-dominant) → status pill · greeting · name ·
+ *                           role · typewriter designation ·
+ *                           CTAs · socials
  *
- *   RIGHT (ProfileCard)   → framed headshot with name · role ·
- *                           education · email straddled beneath.
- *                           Tilted slightly; hover straightens it.
+ *   RIGHT (ProfileCard)   → tilted framed portrait card with
+ *                           signature · name · role · education ·
+ *                           email · credit-line footer.
  *
- * On mobile the columns stack vertically: text first (top), card
- * second (bottom) — conventional reading order.
+ * The bio intentionally lives in <AboutSection /> now — the
+ * hero is for identity + impact, not exposition.
  */
 export default function HeroSection() {
   const { personalInfo, socialLinks } = personalData;
 
   const heroBg = "/images/abstract_technology__e685e5a8.jpg";
   const profileImg = "/images/profile-photo.jpg";
+  const signatureImg = "/images/signature.png";
   const resumePdf = "/Waheed-Aslam-Resume.pdf";
 
-  const scrollToSection = (id: string) => {
-    const element = document.getElementById(id);
-    if (element) element.scrollIntoView({ behavior: "smooth" });
-  };
-
-  // Designation tagline pills — pulled directly from the resume so the
-  // hero is resume-aligned, never editorialised.
-  const designationTags = [
+  // What the typewriter rotates through. Kept short so each
+  // phase is legible from a glance. Order matters: hardest-hitting
+  // specialism lands first.
+  const designationRotations = [
     "Full-Stack MERN",
     "AI / LLM Integration",
     "Real-Time Systems",
     "SaaS Architect",
   ];
+
+  const scrollToSection = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) element.scrollIntoView({ behavior: "smooth" });
+  };
 
   return (
     <section
@@ -67,7 +71,7 @@ export default function HeroSection() {
       <div className="relative z-10 max-w-6xl mx-auto px-6 py-16 md:py-20 w-full">
         <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-10 lg:gap-14 items-center">
           {/* ───────────────────────────────────────────────────────
-              LEFT COLUMN — text + CTAs
+              LEFT COLUMN — identity + CTAs
              ─────────────────────────────────────────────────────── */}
           <div className="text-center lg:text-left order-2 lg:order-1">
             {/* Availability badge */}
@@ -93,7 +97,8 @@ export default function HeroSection() {
               <span className="text-primary">{personalInfo.name}</span>
             </h1>
 
-            {/* Designation prominent */}
+            {/* Static designation line stays — it sets the chapter
+                on first paint even before the typewriter starts. */}
             <p
               className="text-2xl md:text-3xl font-semibold text-primary mb-5"
               data-testid="text-hero-title-main"
@@ -101,34 +106,15 @@ export default function HeroSection() {
               {personalInfo.title}
             </p>
 
-            {/* Designation tags — short, scannable, resume-aligned */}
-            <div
-              className="flex flex-wrap gap-2 mb-6 justify-center lg:justify-start"
-              data-testid="designation-tags"
-            >
-              {designationTags.map((tag, i) => (
-                <span
-                  key={i}
-                  className="text-xs px-3 py-1.5 rounded-full bg-secondary/80 border border-border/60 text-secondary-foreground font-medium"
-                >
-                  {tag}
-                </span>
-              ))}
+            {/* Typewriter designations */}
+            <div className="h-9 md:h-10 mb-8 flex items-center justify-center lg:justify-start">
+              <TypewriterDesignations
+                rotations={designationRotations}
+                data-testid="designation-tags"
+              />
             </div>
 
-            {/* Short bio — condensed 2-sentence version of the resume */}
-            <p
-              className="text-base md:text-lg text-muted-foreground mb-8 max-w-xl mx-auto lg:mx-0 leading-relaxed"
-              data-testid="text-hero-bio"
-            >
-              I design and ship full-stack, AI-powered SaaS platforms — from
-              realtime market intelligence to SEO automation and healthcare.
-              End-to-end ownership from database architecture to production
-              deployment, with hands-on Groq AI, fine-tuned Llama 2, Stripe,
-              and Socket.io integrations.
-            </p>
-
-            {/* CTAs */}
+            {/* CTAs (no long bio in the hero — it lives in About) */}
             <div className="flex flex-wrap gap-4 mb-6 justify-center lg:justify-start">
               <Button
                 size="lg"
@@ -204,6 +190,7 @@ export default function HeroSection() {
           <div className="flex justify-center lg:justify-end order-1 lg:order-2">
             <ProfileCard
               photo={profileImg}
+              signature={signatureImg}
               name={personalInfo.name}
               role={personalInfo.title}
               email={personalInfo.email}
@@ -225,59 +212,83 @@ export default function HeroSection() {
   );
 }
 
-/* ──────────────────────────────────────────────────────────────────
-   ProfileCard
-   ────────────────────────────────────────────────────────────────
-   A framed portrait card designed to read like a premium business
-   card, not a student ID. Replaces the earlier "Student Developer
-   Card · Class of 2026" framing (which read as high-school
-   memorabilia and undermined the senior-tier polish).
+/* ──────────────────────────────────────────────────────────────
+   TypewriterDesignations
+   ──────────────────────────────────────────────────────────────
+   One line under the static role title that types the four
+   designations in turn. Reduced-motion users see the first
+   designation statically (handled inside useTypewriter).
+   ────────────────────────────────────────────────────────────── */
+interface TypewriterDesignationsProps {
+  rotations: string[];
+}
 
-   Visual language:
-     • Header strip is a single, subtle "MERN + AI" tag — the
-       differentiating hard-skills he ships with.
-     • Photo sits in portrait crop with a gradient ring and a
-       holographic corner accent.
-     • Name is dominant; role sits underneath as a quieter
-       secondary label so the card reads like a real calling-card.
-     • Education + email sit as dotted-divider rows in the lower
-       half, the same visual idiom as the original.
-     • Footer strip swaps the "2022 — 2026 · VALID" plaque for
-       a developer-flavored credit line: "#shipping-since-2023"
-       on the left (career start) and a "v.2026.08" version tag
-       on the right (currently-maintained signal). No status
-       pulse — that already lives up in the hero pill, no need
-       to double up.
-     • Tilted -3deg by default, hover straightens it to 0.
-     • Honors prefers-reduced-motion via motion-reduce utilities.
-   ────────────────────────────────────────────────────────────────── */
+function TypewriterDesignations({ rotations }: TypewriterDesignationsProps) {
+  const { text, index } = useTypewriter(rotations, {
+    typeMs: 60,
+    eraseMs: 30,
+    holdMs: 1500,
+    gapMs: 300,
+  });
+
+  return (
+    <p
+      className="text-base md:text-lg text-muted-foreground font-medium"
+      aria-live="polite"
+      aria-atomic="true"
+    >
+      {/* Reserve a fixed width so layout doesn't jump as text grows */}
+      <span className="inline-block min-w-[16ch]">
+        {text}
+        {/* Blinking character cursor — pure CSS, no JS overhead */}
+        <span
+          className="ml-0.5 inline-block h-5 w-[2px] align-middle bg-primary motion-safe:animate-cursor-blink motion-reduce:opacity-0"
+          aria-hidden="true"
+          data-testid="typewriter-cursor"
+        />
+      </span>
+      {/* sr-only fallback so screen readers still hear the current
+          designation even when the visual is reduced/restored */}
+      <span className="sr-only">
+        Currently highlighting: {rotations[index]}
+      </span>
+    </p>
+  );
+}
+
+/* ──────────────────────────────────────────────────────────────
+   ProfileCard
+   ──────────────────────────────────────────────────────────────
+   Premium business-card-style framed portrait. Replaces the
+   earlier student-ID framing entirely.
+   ────────────────────────────────────────────────────────────── */
 interface ProfileCardProps {
   photo: string;
+  signature: string;
   name: string;
   role: string;
   email: string;
 }
 
-function ProfileCard({ photo, name, role, email }: ProfileCardProps) {
+function ProfileCard({ photo, signature, name, role, email }: ProfileCardProps) {
   return (
     <div
       className="relative group select-none"
       data-testid="profile-card-wrapper"
     >
-      {/* Depth shadow — sits behind the card to give a "card on a
-          surface" feel. */}
+      {/* Depth shadow */}
       <div
         aria-hidden="true"
         className="absolute inset-0 translate-x-3 translate-y-3 rounded-2xl bg-primary/20 blur-md"
       />
 
-      {/* The card itself */}
+      {/* The card */}
       <div
         className="relative w-72 sm:w-80 rounded-2xl overflow-hidden bg-card border border-border shadow-2xl transition-transform duration-500 ease-out group-hover:rotate-0 motion-reduce:transition-none"
         style={{ transform: "rotate(-3deg)" }}
         data-testid="profile-card"
       >
-        {/* Header strip — single, subtle tech tag (no "Class of …" framing) */}
+        {/* Header strip */}
         <div className="bg-gradient-to-br from-primary via-primary/90 to-primary/70 px-5 py-3.5 text-primary-foreground flex items-center justify-between">
           <span
             className="text-[10px] font-mono uppercase tracking-[0.22em] opacity-95"
@@ -293,7 +304,7 @@ function ProfileCard({ photo, name, role, email }: ProfileCardProps) {
           </span>
         </div>
 
-        {/* Photo — vertical crop so the face sits in the upper third */}
+        {/* Photo */}
         <div className="px-6 pt-6 flex justify-center">
           <div className="relative">
             <div
@@ -317,8 +328,11 @@ function ProfileCard({ photo, name, role, email }: ProfileCardProps) {
           </div>
         </div>
 
-        {/* Name + role — dominant name, quieter role underneath */}
-        <div className="px-6 pt-5 text-center" data-testid="profile-card-identity">
+        {/* Name + role */}
+        <div
+          className="px-6 pt-5 text-center"
+          data-testid="profile-card-identity"
+        >
           <p
             className="text-lg font-bold leading-tight"
             data-testid="profile-card-name"
@@ -333,11 +347,25 @@ function ProfileCard({ photo, name, role, email }: ProfileCardProps) {
           </p>
         </div>
 
-        {/* Info block — education + email as dotted-divider rows */}
+        {/* Hand-signed signature divider */}
+        <div
+          className="px-6 pt-3"
+          data-testid="profile-card-signature-block"
+        >
+          <img
+            src={signature}
+            alt={`Author's signature: ${name}`}
+            className="block w-full max-h-12 object-contain"
+            data-testid="profile-card-signature"
+          />
+          <div className="mt-1 border-t border-dashed border-border/80" />
+        </div>
+
+        {/* Info block */}
         <div className="px-6 pt-4 pb-4 space-y-3">
           <InfoRow
             label="Education"
-            value="BSc CS · University of Agriculture, Faisalabad"
+            value="Computer Science · University of Agriculture, Faisalabad"
             data-testid="profile-card-row-education"
           />
           <InfoRow
@@ -348,8 +376,7 @@ function ProfileCard({ photo, name, role, email }: ProfileCardProps) {
           />
         </div>
 
-        {/* Footer strip — developer-flavored credit line (no enrollment dates,
-            no VALID pulse; those read as high-school memorabilia) */}
+        {/* Footer strip */}
         <div className="bg-muted/80 px-5 py-2.5 flex items-center justify-between text-xs">
           <span
             className="font-mono tracking-wider text-muted-foreground"
@@ -366,7 +393,7 @@ function ProfileCard({ photo, name, role, email }: ProfileCardProps) {
         </div>
       </div>
 
-      {/* Tiny caption under the card — just the hover nudge, no "Class of" */ }
+      {/* Tiny caption */}
       <p
         className="text-center text-xs text-muted-foreground mt-3 italic opacity-80"
         data-testid="profile-card-caption"
@@ -377,12 +404,9 @@ function ProfileCard({ photo, name, role, email }: ProfileCardProps) {
   );
 }
 
-/* ──────────────────────────────────────────────────────────────────
+/* ──────────────────────────────────────────────────────────────
    ProfileCard.InfoRow
-   ────────────────────────────────────────────────────────────────
-   Single dotted-divider row inside the card. Mono font on the
-   email so it reads like a printed line on a real ID card.
-   ────────────────────────────────────────────────────────────────── */
+   ────────────────────────────────────────────────────────────── */
 interface InfoRowProps {
   label: string;
   value: string;
