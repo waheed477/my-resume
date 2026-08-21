@@ -1,0 +1,21 @@
+{
+  "profile": {
+    "interests": [
+      "Robotics, edge-AI deployment, RAG systems, technical writing, OSS contributions, long-distance cycling"
+    ],
+    "currentlyLearning": [
+      "Kubernetes operators and Helm chart patterns",
+      "Postgres for analytical workloads (Timescale, window functions)",
+      "Prompt eval pipelines (RAGAS / DeepEval) for production LLM quality",
+      "TLA+ for distributed-systems specifications"
+    ],
+    "coursework": [
+      "Data Structures & Algorithms",
+      "Operating Systems",
+      "Computer Networks",
+      "Database Systems",
+      "Software Engineering & DevOps",
+      "Web Engineering"
+    ]
+  }
+}
