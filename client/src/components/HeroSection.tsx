@@ -17,8 +17,9 @@ import personalData from "@/data/personal.json";
  *   LEFT  (text-dominant) → greeting · name · designation · tags ·
  *                           short bio · CTAs · socials
  *
- *   RIGHT (student ID card) → tilted framed card with photo +
- *                             name + education + email under it.
+ *   RIGHT (ProfileCard)   → framed headshot with name · role ·
+ *                           education · email straddled beneath.
+ *                           Tilted slightly; hover straightens it.
  *
  * On mobile the columns stack vertically: text first (top), card
  * second (bottom) — conventional reading order.
@@ -35,8 +36,8 @@ export default function HeroSection() {
     if (element) element.scrollIntoView({ behavior: "smooth" });
   };
 
-  // Designation tagline pills — all pulled directly from the resume
-  // so the hero is resume-aligned, never editorialised.
+  // Designation tagline pills — pulled directly from the resume so the
+  // hero is resume-aligned, never editorialised.
   const designationTags = [
     "Full-Stack MERN",
     "AI / LLM Integration",
@@ -198,12 +199,13 @@ export default function HeroSection() {
           </div>
 
           {/* ───────────────────────────────────────────────────────
-              RIGHT COLUMN — Student Developer ID Card
+              RIGHT COLUMN — ProfileCard (tilted, premium)
              ─────────────────────────────────────────────────────── */}
           <div className="flex justify-center lg:justify-end order-1 lg:order-2">
-            <StudentIdCard
+            <ProfileCard
               photo={profileImg}
               name={personalInfo.name}
+              role={personalInfo.title}
               email={personalInfo.email}
             />
           </div>
@@ -224,24 +226,43 @@ export default function HeroSection() {
 }
 
 /* ──────────────────────────────────────────────────────────────────
-   StudentIdCard
+   ProfileCard
    ────────────────────────────────────────────────────────────────
-   A framed "Student Developer ID" card. Tilted slightly so it
-   reads as a physical card sitting on a surface. Hover lifts the
-   tilt so it feels alive. Photo is cropped to portrait so the
-   face sits in the upper third of the image.
+   A framed portrait card designed to read like a premium business
+   card, not a student ID. Replaces the earlier "Student Developer
+   Card · Class of 2026" framing (which read as high-school
+   memorabilia and undermined the senior-tier polish).
+
+   Visual language:
+     • Header strip is a single, subtle "MERN + AI" tag — the
+       differentiating hard-skills he ships with.
+     • Photo sits in portrait crop with a gradient ring and a
+       holographic corner accent.
+     • Name is dominant; role sits underneath as a quieter
+       secondary label so the card reads like a real calling-card.
+     • Education + email sit as dotted-divider rows in the lower
+       half, the same visual idiom as the original.
+     • Footer strip swaps the "2022 — 2026 · VALID" plaque for
+       a developer-flavored credit line: "#shipping-since-2023"
+       on the left (career start) and a "v.2026.08" version tag
+       on the right (currently-maintained signal). No status
+       pulse — that already lives up in the hero pill, no need
+       to double up.
+     • Tilted -3deg by default, hover straightens it to 0.
+     • Honors prefers-reduced-motion via motion-reduce utilities.
    ────────────────────────────────────────────────────────────────── */
-interface StudentIdCardProps {
+interface ProfileCardProps {
   photo: string;
   name: string;
+  role: string;
   email: string;
 }
 
-function StudentIdCard({ photo, name, email }: StudentIdCardProps) {
+function ProfileCard({ photo, name, role, email }: ProfileCardProps) {
   return (
     <div
       className="relative group select-none"
-      data-testid="student-id-card-wrapper"
+      data-testid="profile-card-wrapper"
     >
       {/* Depth shadow — sits behind the card to give a "card on a
           surface" feel. */}
@@ -254,16 +275,22 @@ function StudentIdCard({ photo, name, email }: StudentIdCardProps) {
       <div
         className="relative w-72 sm:w-80 rounded-2xl overflow-hidden bg-card border border-border shadow-2xl transition-transform duration-500 ease-out group-hover:rotate-0 motion-reduce:transition-none"
         style={{ transform: "rotate(-3deg)" }}
-        data-testid="student-id-card"
+        data-testid="profile-card"
       >
-        {/* Header strip */}
-        <div className="bg-gradient-to-br from-primary via-primary/90 to-primary/70 px-5 py-3.5 text-primary-foreground">
-          <p className="text-[10px] uppercase tracking-[0.2em] opacity-90">
-            Student Developer Card
-          </p>
-          <p className="text-base font-bold tracking-wide mt-0.5">
-            CLASS OF 2026
-          </p>
+        {/* Header strip — single, subtle tech tag (no "Class of …" framing) */}
+        <div className="bg-gradient-to-br from-primary via-primary/90 to-primary/70 px-5 py-3.5 text-primary-foreground flex items-center justify-between">
+          <span
+            className="text-[10px] font-mono uppercase tracking-[0.22em] opacity-95"
+            data-testid="profile-card-tag"
+          >
+            MERN + AI
+          </span>
+          <span
+            className="text-[10px] font-mono opacity-70"
+            data-testid="profile-card-tag-meta"
+          >
+            v.2026.08
+          </span>
         </div>
 
         {/* Photo — vertical crop so the face sits in the upper third */}
@@ -280,7 +307,7 @@ function StudentIdCard({ photo, name, email }: StudentIdCardProps) {
               style={{ objectPosition: "50% 25%" }}
               loading="eager"
               decoding="async"
-              data-testid="student-id-card-photo"
+              data-testid="profile-card-photo"
             />
             {/* Holographic corner accent */}
             <div
@@ -290,47 +317,68 @@ function StudentIdCard({ photo, name, email }: StudentIdCardProps) {
           </div>
         </div>
 
-        {/* Info block — name, education, email under the photo */}
-        <div className="px-6 pt-5 pb-4 space-y-3">
-          <InfoRow label="Name" value={name} data-testid="student-id-row-name" />
+        {/* Name + role — dominant name, quieter role underneath */}
+        <div className="px-6 pt-5 text-center" data-testid="profile-card-identity">
+          <p
+            className="text-lg font-bold leading-tight"
+            data-testid="profile-card-name"
+          >
+            {name}
+          </p>
+          <p
+            className="text-xs text-muted-foreground mt-0.5"
+            data-testid="profile-card-role"
+          >
+            {role}
+          </p>
+        </div>
+
+        {/* Info block — education + email as dotted-divider rows */}
+        <div className="px-6 pt-4 pb-4 space-y-3">
           <InfoRow
             label="Education"
             value="BSc CS · University of Agriculture, Faisalabad"
-            data-testid="student-id-row-education"
+            data-testid="profile-card-row-education"
           />
           <InfoRow
             label="Email"
             value={email}
             mono
-            data-testid="student-id-row-email"
+            data-testid="profile-card-row-email"
           />
         </div>
 
-        {/* Footer strip */}
+        {/* Footer strip — developer-flavored credit line (no enrollment dates,
+            no VALID pulse; those read as high-school memorabilia) */}
         <div className="bg-muted/80 px-5 py-2.5 flex items-center justify-between text-xs">
-          <span className="font-mono tracking-wider text-muted-foreground">
-            2022 — 2026
+          <span
+            className="font-mono tracking-wider text-muted-foreground"
+            data-testid="profile-card-shipping"
+          >
+            #shipping-since-2023
           </span>
-          <span className="inline-flex items-center gap-1.5 text-primary font-semibold">
-            <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-            VALID
+          <span
+            className="font-mono tracking-wider text-primary/80"
+            data-testid="profile-card-handle"
+          >
+            @waheed477
           </span>
         </div>
       </div>
 
-      {/* Tiny caption under the card */}
+      {/* Tiny caption under the card — just the hover nudge, no "Class of" */ }
       <p
         className="text-center text-xs text-muted-foreground mt-3 italic opacity-80"
-        data-testid="student-id-card-caption"
+        data-testid="profile-card-caption"
       >
-        Hover to straighten · Class of 2026
+        Hover to straighten
       </p>
     </div>
   );
 }
 
 /* ──────────────────────────────────────────────────────────────────
-   InfoRow
+   ProfileCard.InfoRow
    ────────────────────────────────────────────────────────────────
    Single dotted-divider row inside the card. Mono font on the
    email so it reads like a printed line on a real ID card.
