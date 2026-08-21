@@ -7,7 +7,6 @@ import SkillsProficiencySection from "@/components/SkillsProficiencySection";
 import StackRationaleSection from "@/components/StackRationaleSection";
 import WorkingPrinciplesSection from "@/components/WorkingPrinciplesSection";
 import EducationSection from "@/components/EducationSection";
-import TestimonialsSection from "@/components/TestimonialsSection";
 import BlogSection from "@/components/BlogSection";
 import GitHubStatsWidget from "@/components/GitHubStatsWidget";
 import ContactSection from "@/components/ContactSection";
@@ -37,10 +36,9 @@ export default function Portfolio() {
       <SkillsSection />
       <SkillsProficiencySection />
       <StackRationaleSection />
-      <WorkingPrinciplesSection />
-      <EducationSection />
-      <TestimonialsSection />
-      <BlogSection />
+        <WorkingPrinciplesSection />
+        <EducationSection />
+        <BlogSection />
       <GitHubStatsWidget />
       <ContactSection />
     </>

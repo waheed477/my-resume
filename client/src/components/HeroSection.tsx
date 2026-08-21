@@ -12,26 +12,35 @@ import { useTypewriter } from "@/hooks/use-typewriter";
 
 /**
  * HeroSection
- * ────────────────────────────────────────────────────────────────
+ * ──────────────────────────────────────────��───────────────────
  * Two-column hero.
  *
  *   LEFT  (text-dominant) → status pill · greeting · name ·
- *                           role · typewriter designation ·
- *                           CTAs · socials
+ *                           role · resume-aligned subtitle ·
+ *                           typewriter designation · CTAs ·
+ *                           socials
  *
  *   RIGHT (ProfileCard)   → tilted framed portrait card with
- *                           signature · name · role · education ·
- *                           email · credit-line footer.
+ *                           photo + handwriting signature + name
+ *                           + resume-aligned subtitle + role +
+ *                           education + email + credit-line footer.
  *
- * The bio intentionally lives in <AboutSection /> now — the
- * hero is for identity + impact, not exposition.
+ * Title "MERN Stack Developer" stays EXACTLY as the resume reads.
+ * The personalised tagline ("Full-stack MERN · AI/LLM specialty
+ * · shipping in production since 2023") is sourced from
+ * personalInfo.description and shown as a subtitle on both the
+ * hero left column and the ProfileCard. The tagline fortifies
+ * the title without drifting from the resume's actual wording.
+ *
+ * The bio intentionally lives in /about. Hero is for identity +
+ * impact + tag.
  */
 export default function HeroSection() {
   const { personalInfo, socialLinks } = personalData;
 
   const heroBg = "/images/abstract_technology__e685e5a8.jpg";
   const profileImg = "/images/profile-photo.jpg";
-  const signatureImg = "/images/signature.png";
+  const signatureImg = "/images/signature.jpg";
   const resumePdf = "/Waheed-Aslam-Resume.pdf";
 
   // What the typewriter rotates through. Kept short so each
@@ -70,9 +79,9 @@ export default function HeroSection() {
 
       <div className="relative z-10 max-w-6xl mx-auto px-6 py-16 md:py-20 w-full">
         <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-10 lg:gap-14 items-center">
-          {/* ───────────────────────────────────────────────────────
+          {/* ─────────────────────────────────────────────────────�
               LEFT COLUMN — identity + CTAs
-             ─────────────────────────────────────────────────────── */}
+             ────────────────────────────────────────────── */}
           <div className="text-center lg:text-left order-2 lg:order-1">
             {/* Availability badge */}
             <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/5 px-4 py-1.5 text-sm backdrop-blur-md">
@@ -97,14 +106,25 @@ export default function HeroSection() {
               <span className="text-primary">{personalInfo.name}</span>
             </h1>
 
-            {/* Static designation line stays — it sets the chapter
-                on first paint even before the typewriter starts. */}
+            {/* Static title line stays exactly as resume reads it */}
             <p
-              className="text-2xl md:text-3xl font-semibold text-primary mb-5"
+              className="text-2xl md:text-3xl font-semibold text-primary mb-2"
               data-testid="text-hero-title-main"
             >
               {personalInfo.title}
             </p>
+
+            {/* Resume-aligned subtitle fortifies title. Single line.
+                Drives keyword match for the AI/LLM search recruiters
+                actually run instead of plain MERN. */}
+            {personalInfo.description && (
+              <p
+                className="text-sm md:text-base text-muted-foreground font-medium mb-5 max-w-xl mx-auto lg:mx-0"
+                data-testid="text-hero-tagline"
+              >
+                {personalInfo.description}
+              </p>
+            )}
 
             {/* Typewriter designations */}
             <div className="h-9 md:h-10 mb-8 flex items-center justify-center lg:justify-start">
@@ -114,7 +134,7 @@ export default function HeroSection() {
               />
             </div>
 
-            {/* CTAs (no long bio in the hero — it lives in About) */}
+            {/* CTAs (no long bio in the hero — it lives in /about) */}
             <div className="flex flex-wrap gap-4 mb-6 justify-center lg:justify-start">
               <Button
                 size="lg"
@@ -184,15 +204,16 @@ export default function HeroSection() {
             </div>
           </div>
 
-          {/* ───────────────────────────────────────────────────────
+          {/* ──────────────────────────────────────────────�
               RIGHT COLUMN — ProfileCard (tilted, premium)
-             ─────────────────────────────────────────────────────── */}
+             ────────────────────────────────────────────── */}
           <div className="flex justify-center lg:justify-end order-1 lg:order-2">
             <ProfileCard
               photo={profileImg}
               signature={signatureImg}
               name={personalInfo.name}
               role={personalInfo.title}
+              description={personalInfo.description}
               email={personalInfo.email}
             />
           </div>
@@ -214,11 +235,7 @@ export default function HeroSection() {
 
 /* ──────────────────────────────────────────────────────────────
    TypewriterDesignations
-   ──────────────────────────────────────────────────────────────
-   One line under the static role title that types the four
-   designations in turn. Reduced-motion users see the first
-   designation statically (handled inside useTypewriter).
-   ────────────────────────────────────────────────────────────── */
+   ────────────────────────────────────────────── */
 interface TypewriterDesignationsProps {
   rotations: string[];
 }
@@ -237,18 +254,14 @@ function TypewriterDesignations({ rotations }: TypewriterDesignationsProps) {
       aria-live="polite"
       aria-atomic="true"
     >
-      {/* Reserve a fixed width so layout doesn't jump as text grows */}
       <span className="inline-block min-w-[16ch]">
         {text}
-        {/* Blinking character cursor — pure CSS, no JS overhead */}
         <span
           className="ml-0.5 inline-block h-5 w-[2px] align-middle bg-primary motion-safe:animate-cursor-blink motion-reduce:opacity-0"
           aria-hidden="true"
           data-testid="typewriter-cursor"
         />
       </span>
-      {/* sr-only fallback so screen readers still hear the current
-          designation even when the visual is reduced/restored */}
       <span className="sr-only">
         Currently highlighting: {rotations[index]}
       </span>
@@ -258,19 +271,24 @@ function TypewriterDesignations({ rotations }: TypewriterDesignationsProps) {
 
 /* ──────────────────────────────────────────────────────────────
    ProfileCard
-   ──────────────────────────────────────────────────────────────
-   Premium business-card-style framed portrait. Replaces the
-   earlier student-ID framing entirely.
-   ────────────────────────────────────────────────────────────── */
+   ────────────────────────────────────────────── */
 interface ProfileCardProps {
   photo: string;
   signature: string;
   name: string;
   role: string;
+  description?: string;
   email: string;
 }
 
-function ProfileCard({ photo, signature, name, role, email }: ProfileCardProps) {
+function ProfileCard({
+  photo,
+  signature,
+  name,
+  role,
+  description,
+  email,
+}: ProfileCardProps) {
   return (
     <div
       className="relative group select-none"
@@ -345,6 +363,14 @@ function ProfileCard({ photo, signature, name, role, email }: ProfileCardProps) 
           >
             {role}
           </p>
+          {description && (
+            <p
+              className="text-[10.5px] mt-2 italic text-muted-foreground/70 leading-snug"
+              data-testid="profile-card-tagline"
+            >
+              {description}
+            </p>
+          )}
         </div>
 
         {/* Hand-signed signature divider */}
@@ -393,7 +419,6 @@ function ProfileCard({ photo, signature, name, role, email }: ProfileCardProps) 
         </div>
       </div>
 
-      {/* Tiny caption */}
       <p
         className="text-center text-xs text-muted-foreground mt-3 italic opacity-80"
         data-testid="profile-card-caption"
@@ -404,9 +429,9 @@ function ProfileCard({ photo, signature, name, role, email }: ProfileCardProps) 
   );
 }
 
-/* ──────────────────────────────────────────────────────────────
+/* ──────────────────────────────────────────────
    ProfileCard.InfoRow
-   ────────────────────────────────────────────────────────────── */
+   ────────────────────────────────────────────── */
 interface InfoRowProps {
   label: string;
   value: string;
