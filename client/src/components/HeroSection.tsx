@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   ArrowDown,
   Github,
@@ -12,40 +13,54 @@ import { useTypewriter } from "@/hooks/use-typewriter";
 
 /**
  * HeroSection
- * ──────────────────────────────────────────��───────────────────
+ * ────────────────────────────────────────────────────────────────
  * Two-column hero.
  *
- *   LEFT  (text-dominant) → status pill · greeting · name ·
- *                           role · resume-aligned subtitle ·
- *                           typewriter designation · CTAs ·
- *                           socials
+ *   LEFT  (text-dominant) → status pill · greeting · name · role
+ *                           · resume-aligned subtitle · typewriter
+ *                           designation · CTAs · socials
  *
- *   RIGHT (ProfileCard)   → tilted framed portrait card with
- *                           photo + handwriting signature + name
- *                           + resume-aligned subtitle + role +
- *                           education + email + credit-line footer.
+ *   RIGHT (ProfileCard)   → tilted framed portrait card with photo
+ *                           · name + role + tagline · education ·
+ *                           email · hand-signed signature at the
+ *                           bottom · credit-line footer.
  *
  * Title "MERN Stack Developer" stays EXACTLY as the resume reads.
- * The personalised tagline ("Full-stack MERN · AI/LLM specialty
- * · shipping in production since 2023") is sourced from
- * personalInfo.description and shown as a subtitle on both the
- * hero left column and the ProfileCard. The tagline fortifies
- * the title without drifting from the resume's actual wording.
+ * The personalised tagline ("Full-stack MERN · AI/LLM specialty ·
+ * shipping in production since 2023") lives in
+ * personalInfo.description and is shown as a subtitle on both the
+ * hero left column and the ProfileCard.
  *
- * The bio intentionally lives in /about. Hero is for identity +
- * impact + tag.
+ * Tilt fix: The earlier `style={{ transform: 'rotate(-3deg)' }}`
+ * inline rule beat Tailwind's `group-hover:rotate-0` by CSS
+ * specificity, so the hover never straightened the card.
+ * We now drive the rotation with React state so the inline-style
+ * override is gone, and the hover tilt effect actually works.
+ *
+ * Signature layout: signature is at the BOTTOM of the card, just
+ * above the credit-line footer, where it reads as an authentic
+ * pen-on-paper sign-off after every other field (i.e. a person
+ * who just claimed everything also signed the claim).
+ *
+ * Education wrap: the InfoRow used Tailwind `truncate` which clips
+ * "Computer Science · University of Agriculture, Faisalabad" to a
+ * single ellipsis line. That field is already known to the reader
+ * (and is in the headline cards of /education and /experience);
+ * we let it wrap onto 2 lines instead of clipping.
+ *
+ * Hero name prominence: "Hi, I'm" stays on one line and the
+ * name "Waheed Aslam" wraps to its own block so salutation and
+ * subject both breathe at their own scale.
  */
 export default function HeroSection() {
   const { personalInfo, socialLinks } = personalData;
 
   const heroBg = "/images/abstract_technology__e685e5a8.jpg";
   const profileImg = "/images/profile-photo.jpg";
-  const signatureImg = "/images/signature.jpg";
+  const signatureImg = "/images/signature.png";
   const resumePdf = "/Waheed-Aslam-Resume.pdf";
 
-  // What the typewriter rotates through. Kept short so each
-  // phase is legible from a glance. Order matters: hardest-hitting
-  // specialism lands first.
+  // Order matters: hardest-hitting specialism lands first.
   const designationRotations = [
     "Full-Stack MERN",
     "AI / LLM Integration",
@@ -70,8 +85,6 @@ export default function HeroSection() {
         aria-hidden="true"
       />
       <div className="absolute inset-0 bg-gradient-to-b from-background/95 via-background/85 to-background" />
-      {/* Subtle right-side gradient so the card sits on a slightly
-          different tonal background than the text. */}
       <div
         className="absolute inset-0 bg-gradient-to-l from-primary/5 via-transparent to-transparent"
         aria-hidden="true"
@@ -79,9 +92,9 @@ export default function HeroSection() {
 
       <div className="relative z-10 max-w-6xl mx-auto px-6 py-16 md:py-20 w-full">
         <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-10 lg:gap-14 items-center">
-          {/* ─────────────────────────────────────────────────────�
+          {/* ───────────────────────────────────────────────────────
               LEFT COLUMN — identity + CTAs
-             ────────────────────────────────────────────── */}
+             ─────────────────────────────────────────────────────── */}
           <div className="text-center lg:text-left order-2 lg:order-1">
             {/* Availability badge */}
             <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/5 px-4 py-1.5 text-sm backdrop-blur-md">
@@ -97,29 +110,38 @@ export default function HeroSection() {
               </span>
             </div>
 
-            {/* Greeting + Name */}
+            {/* Greeting — "Hi, I'm" stays small on its own line,
+                name "Waheed Aslam" gets the full primary rotation
+                on its own line below. */}
             <h1
-              className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold mb-4 leading-tight"
+              className="font-serif font-bold leading-tight mb-0"
               data-testid="text-hero-title"
             >
-              Hi, I'm{" "}
-              <span className="text-primary">{personalInfo.name}</span>
+              <span className="block text-2xl md:text-3xl text-muted-foreground font-medium mb-2">
+                Hi, I'm
+              </span>
+              <span
+                className="block text-4xl md:text-5xl lg:text-6xl text-primary"
+                data-testid="text-hero-name"
+              >
+                {personalInfo.name}
+              </span>
             </h1>
 
             {/* Static title line stays exactly as resume reads it */}
             <p
-              className="text-2xl md:text-3xl font-semibold text-primary mb-2"
+              className="text-xl md:text-2xl font-semibold text-primary mt-4 mb-2"
               data-testid="text-hero-title-main"
             >
               {personalInfo.title}
             </p>
 
-            {/* Resume-aligned subtitle fortifies title. Single line.
-                Drives keyword match for the AI/LLM search recruiters
-                actually run instead of plain MERN. */}
+            {/* Resume-aligned subtitle fortifies title. Drives
+                keyword match for the AI/LLM search recruiters
+                actually run. */}
             {personalInfo.description && (
               <p
-                className="text-sm md:text-base text-muted-foreground font-medium mb-5 max-w-xl mx-auto lg:mx-0"
+                className="text-sm md:text-base text-muted-foreground font-medium mb-6 max-w-xl mx-auto lg:mx-0"
                 data-testid="text-hero-tagline"
               >
                 {personalInfo.description}
@@ -134,7 +156,7 @@ export default function HeroSection() {
               />
             </div>
 
-            {/* CTAs (no long bio in the hero — it lives in /about) */}
+            {/* CTAs */}
             <div className="flex flex-wrap gap-4 mb-6 justify-center lg:justify-start">
               <Button
                 size="lg"
@@ -204,9 +226,9 @@ export default function HeroSection() {
             </div>
           </div>
 
-          {/* ──────────────────────────────────────────────�
+          {/* ───────────────────────────────────────────────────────
               RIGHT COLUMN — ProfileCard (tilted, premium)
-             ────────────────────────────────────────────── */}
+             ─────────────────────────────────────────────────────── */}
           <div className="flex justify-center lg:justify-end order-1 lg:order-2">
             <ProfileCard
               photo={profileImg}
@@ -235,7 +257,7 @@ export default function HeroSection() {
 
 /* ──────────────────────────────────────────────────────────────
    TypewriterDesignations
-   ────────────────────────────────────────────── */
+   ────────────────────────────────────────────────────────────── */
 interface TypewriterDesignationsProps {
   rotations: string[];
 }
@@ -271,7 +293,14 @@ function TypewriterDesignations({ rotations }: TypewriterDesignationsProps) {
 
 /* ──────────────────────────────────────────────────────────────
    ProfileCard
-   ────────────────────────────────────────────── */
+   ──────────────────────────────────────────────────────────────
+   Premium business-card-style framed portrait. The whole card
+   reacts to mouseenter / mouseleave — this was previously
+   driven by Tailwind's `group-hover:rotate-0` against an inline
+   `transform: rotate(-3deg)` style. The inline style had higher
+   specificity and won every time, so hover did nothing. We now
+   drive rotation with React state out of a small useState.
+   ────────────────────────────────────────────────────────────── */
 interface ProfileCardProps {
   photo: string;
   signature: string;
@@ -289,6 +318,8 @@ function ProfileCard({
   description,
   email,
 }: ProfileCardProps) {
+  const [isTilted, setIsTilted] = useState(true);
+
   return (
     <div
       className="relative group select-none"
@@ -300,10 +331,14 @@ function ProfileCard({
         className="absolute inset-0 translate-x-3 translate-y-3 rounded-2xl bg-primary/20 blur-md"
       />
 
-      {/* The card */}
       <div
-        className="relative w-72 sm:w-80 rounded-2xl overflow-hidden bg-card border border-border shadow-2xl transition-transform duration-500 ease-out group-hover:rotate-0 motion-reduce:transition-none"
-        style={{ transform: "rotate(-3deg)" }}
+        onMouseEnter={() => setIsTilted(false)}
+        onMouseLeave={() => setIsTilted(true)}
+        className={cn(
+          "relative w-72 sm:w-80 rounded-2xl overflow-hidden bg-card border border-border shadow-2xl motion-reduce:transition-none",
+          "transition-transform duration-500 ease-out",
+          isTilted ? "-rotate-3" : "rotate-0",
+        )}
         data-testid="profile-card"
       >
         {/* Header strip */}
@@ -346,7 +381,7 @@ function ProfileCard({
           </div>
         </div>
 
-        {/* Name + role */}
+        {/* Name + role + tagline */}
         <div
           className="px-6 pt-5 text-center"
           data-testid="profile-card-identity"
@@ -373,21 +408,7 @@ function ProfileCard({
           )}
         </div>
 
-        {/* Hand-signed signature divider */}
-        <div
-          className="px-6 pt-3"
-          data-testid="profile-card-signature-block"
-        >
-          <img
-            src={signature}
-            alt={`Author's signature: ${name}`}
-            className="block w-full max-h-12 object-contain"
-            data-testid="profile-card-signature"
-          />
-          <div className="mt-1 border-t border-dashed border-border/80" />
-        </div>
-
-        {/* Info block */}
+        {/* Education + Email — wraps (no truncate) */}
         <div className="px-6 pt-4 pb-4 space-y-3">
           <InfoRow
             label="Education"
@@ -402,7 +423,32 @@ function ProfileCard({
           />
         </div>
 
-        {/* Footer strip */}
+        {/* Hand-signed signature at the bottom of the card */}
+        <div
+          className="px-6 pb-4"
+          data-testid="profile-card-signature-block"
+        >
+          <div
+            aria-hidden="true"
+            className="mb-2 border-t border-dashed border-border/80"
+          />
+          <img
+            src={signature}
+            alt={`Author's signature: ${name}`}
+            className="block w-full max-h-14 object-contain"
+            data-testid="profile-card-signature"
+          />
+          <div className="mt-1 text-center">
+            <span
+              className="text-[9px] uppercase tracking-[0.22em] text-muted-foreground/70 font-semibold"
+              data-testid="profile-card-sig-label"
+            >
+              signed
+            </span>
+          </div>
+        </div>
+
+        {/* Footer strip — credit-line */}
         <div className="bg-muted/80 px-5 py-2.5 flex items-center justify-between text-xs">
           <span
             className="font-mono tracking-wider text-muted-foreground"
@@ -429,9 +475,9 @@ function ProfileCard({
   );
 }
 
-/* ──────────────────────────────────────────────
+/* ──────────────────────────────────────────────────────────────
    ProfileCard.InfoRow
-   ────────────────────────────────────────────── */
+   ────────────────────────────────────────────────────────────── */
 interface InfoRowProps {
   label: string;
   value: string;
@@ -447,7 +493,7 @@ function InfoRow({ label, value, mono, ...rest }: InfoRowProps) {
       </p>
       <p
         className={cn(
-          "text-sm font-medium mt-0.5 truncate",
+          "text-sm font-medium mt-0.5 leading-snug",
           mono && "font-mono text-xs",
         )}
       >
