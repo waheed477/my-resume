@@ -19,7 +19,7 @@ export default function AboutPage() {
 
   return (
     <SiteLayout>
-      <main className="pt-4">
+      <div className="pt-4">
         {/* ── Page header ──────────────────────────────────────── */}
         <section className="py-12 md:py-16 bg-background">
           <div className="max-w-4xl mx-auto px-6">
@@ -224,7 +224,7 @@ export default function AboutPage() {
             </div>
           </div>
         </section>
-      </main>
+      </div>
     </SiteLayout>
   );
 }

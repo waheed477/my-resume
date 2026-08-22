@@ -32,7 +32,7 @@ export default function EducationPage() {
 
   return (
     <SiteLayout>
-      <main className="pt-4">
+      <div className="pt-4">
         <div className="max-w-4xl mx-auto px-6 py-12 md:py-20 space-y-12">
           {/* ── Header ──────────────────────────────────────── */}
           <header>
@@ -215,7 +215,7 @@ export default function EducationPage() {
             </a>
           </div>
         </div>
-      </main>
+      </div>
     </SiteLayout>
   );
 }

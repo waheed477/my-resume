@@ -28,7 +28,7 @@ export default function SkillsPage() {
 
   return (
     <SiteLayout>
-      <main className="pt-4">
+      <div className="pt-4">
         <div className="max-w-5xl mx-auto px-6 py-12 md:py-20 space-y-16">
           {/* ── Header ────────────────────────────────────────── */}
           <header>
@@ -286,7 +286,7 @@ export default function SkillsPage() {
             </Card>
           </section>
         </div>
-      </main>
+      </div>
     </SiteLayout>
   );
 }

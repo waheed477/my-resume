@@ -26,7 +26,7 @@ export default function HowIWorkPage() {
 
   return (
     <SiteLayout>
-      <main className="pt-4">
+      <div className="pt-4">
         <div className="max-w-5xl mx-auto px-6 py-12 md:py-20 space-y-16">
           {/* ── Header ──────────────────────────────────────── */}
           <header>
@@ -259,7 +259,7 @@ export default function HowIWorkPage() {
             </p>
           </Card>
         </div>
-      </main>
+      </div>
     </SiteLayout>
   );
 }

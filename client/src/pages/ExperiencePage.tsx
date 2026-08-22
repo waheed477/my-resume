@@ -19,7 +19,7 @@ export default function ExperiencePage() {
 
   return (
     <SiteLayout>
-      <main className="pt-4">
+      <div className="pt-4">
         <div className="max-w-4xl mx-auto px-6 py-12 md:py-20">
           {/* Header */}
           <p
@@ -172,7 +172,7 @@ export default function ExperiencePage() {
             </p>
           </Card>
         </div>
-      </main>
+      </div>
     </SiteLayout>
   );
 }

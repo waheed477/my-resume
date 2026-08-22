@@ -12,7 +12,7 @@ import { cn } from "@/lib/utils";
 export default function ProjectsPage() {
   return (
     <SiteLayout>
-      <main className="pt-4">
+      <div className="pt-4">
         <div className="max-w-4xl mx-auto px-6 py-16 md:py-20">
           <p
             className="text-xs uppercase tracking-[0.2em] text-primary font-semibold mb-3"
@@ -54,7 +54,7 @@ export default function ProjectsPage() {
             </a>
           </div>
         </div>
-      </main>
+      </div>
     </SiteLayout>
   );
 }
