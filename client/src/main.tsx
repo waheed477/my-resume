@@ -12,28 +12,32 @@ createRoot(document.getElementById("root")!).render(
 );
 
 // ──────────────────────────────────────────────────────────────────
-//  Service worker registration + unregister-of-old-caches
+//  Service worker registration
 // ──────────────────────────────────────────────────────────────────
 //
-//  We use a "stale-while-revalidating + forced take-over" pattern:
+//  Intentionally minimal. The previous version of this file
+//  had a controllerchange listener that reloaded the page on
+//  every SW controller swap, which combined with the new SW's
+//  clients.claim() produced an infinite reload loop on the
+//  live site. Fix: do not reload the page from SW events. Let
+//  the browser manage the SW lifecycle:
 //
-//   1. On every page load, walk through every active
-//      registration and call update() so the browser
-//      re-fetches /sw.js from the live Netlify deploy and
-//      sees the new version.
-//   2. When the new SW activates, its activate handler
-//      wipes every older cache (we delete any cache whose
-//      name is not the current CACHE_NAME).
-//   3. After install of the new SW, send {type:'SKIP_WAITING'}
-//      so the new SW activates immediately on the very next
-//      reload — no need to close every browser tab.
-//   4. If we detect any registration whose active SW is older
-//      than the live one (cache name v3), call
-//      registration.unregister() so the browser drops it.
-//
-//  This combination is the canonical fix for "the SW from
-//  the previous deploy is still serving the previous bundle
-//  and the page is blank".
+//    1. On first visit the SW installs, caches the static
+//       shell, and our sw.js' skipWaiting() + clients.claim()
+//       activate it immediately.
+//    2. On subsequent visits the SW intercepts /assets/*
+//       network-first so a fresh deploy is served on the next
+//       navigation. Old caches get wiped on activate (by the
+//       SW itself). The HTML that was served still loads —
+//       the page works fine without a reload.
+//    3. On a NEW SW bytes being pushed (a new deploy), the
+//       browser detects the byte diff, runs install, calls
+//       skipWaiting + clients.claim() — and on the NEXT user
+//       navigation the new SW is in effect.
+//    4. We DO NOT reload the page automatically. A reload
+//       re-hydrates React against the same DOM the user is
+//       already reading, which is what produces the visible
+//       "blink" on the live site.
 //
 //  Disabled in dev (Vite HMR + service workers don't mix well).
 // ──────────────────────────────────────────────────────────────────
@@ -42,47 +46,11 @@ if ("serviceWorker" in navigator && import.meta.env.PROD) {
   window.addEventListener("load", () => {
     navigator.serviceWorker
       .register("/sw.js", { scope: "/" })
-      .then((registration) => {
-        // Re-fetch the SW every page load so a fresh deploy is
-        // seen immediately.
-        registration.update().catch(() => {});
-
-        // If there's already an older SW, force-unregister it so
-        // the new one becomes the active one without waiting for
-        // every browser tab to close.
-        if (registration.active && navigator.serviceWorker.controller) {
-          registration.unregister().catch(() => {});
-          window.location.reload();
-        }
-
-        // When a new SW is found, ask it to skip waiting so it
-        // activates as soon as the page is ready.
-        registration.addEventListener("updatefound", () => {
-          const installing = registration.installing;
-          if (!installing) return;
-          installing.addEventListener("statechange", () => {
-            if (
-              installing.state === "installed" &&
-              navigator.serviceWorker.controller
-            ) {
-              installing.postMessage({ type: "SKIP_WAITING" });
-            }
-          });
-        });
-      })
       .catch((err) =>
-        console.warn("[SW] registration skipped:", err.message),
+        console.warn(
+          "[SW] registration skipped:",
+          err && err.message ? err.message : err,
+        ),
       );
-
-    // Listen for the controller-change event (new SW took over)
-    // and reload once so the page hydrates against the new
-    // bundle — without this, the user sees a blank page until
-    // they manually reload.
-    let refreshing = false;
-    navigator.serviceWorker.addEventListener("controllerchange", () => {
-      if (refreshing) return;
-      refreshing = true;
-      window.location.reload();
-    });
   });
 }
