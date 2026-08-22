@@ -22,7 +22,11 @@ import { Badge } from "@/components/ui/badge";
  */
 export default function HowIWorkPage() {
   const { principles } = principlesData;
-  const { stack } = stackData;
+  // stackRationale.json exposes the list under key "points"; we
+  // alias it to `stack` locally so the render code reads naturally
+  // — but importantly we read DATA.points, not data.stack, which
+  // is undefined in the JSON file.
+  const { points: stack } = stackData;
 
   return (
     <SiteLayout>
